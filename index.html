@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNAP ABAWD Exemption Screener | Monroe County, NY</title>
+  <meta name="description" content="Find out if you may be exempt from SNAP ABAWD work requirements in Monroe County, NY. Free screening tool, no personal information collected." />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      background: linear-gradient(170deg, #f8f9fc 0%, #f3f1ee 100%);
+      font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+      color: #1a1a2e;
+    }
+    #root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 48px;
+      min-height: 100vh;
+    }
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(16,6,146,0.06), 0 1px 3px rgba(0,0,0,0.04);
+      padding: 36px 32px;
+      animation: fadeUp 0.35s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card.reset-anim { animation: none; }
+    .badge-date {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(249,230,36,0.25);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #100692;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #100692;
+      margin: 0 0 12px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #6b6b7b;
+      margin: 0 0 20px;
+      line-height: 1.4;
+    }
+    .body-text {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #3a3a4a;
+      margin: 0 0 20px;
+    }
+    .disclaimer-box {
+      background: #f8f9fc;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      border: 1px solid #e2e0dc;
+    }
+    .disclaimer-box p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #6b6b7b;
+      margin: 0;
+    }
+    .disclaimer-box strong { color: #3a3a4a; }
+    .btn-primary {
+      padding: 14px 32px;
+      background: #100692;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Source Sans 3', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(16,6,146,0.19);
+      width: 100%;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,6,146,0.25); }
+    .btn-answer {
+      flex: 1;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Source Sans 3', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+    .btn-yes {
+      background: #100692;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16,6,146,0.19);
+    }
+    .btn-yes:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,6,146,0.25); }
+    .btn-no {
+      background: #ffffff;
+      color: #100692;
+      border: 2px solid #100692 !important;
+    }
+    .btn-no:hover { background: rgba(16,6,146,0.03); }
+    .btn-secondary {
+      padding: 10px 20px;
+      background: transparent;
+      color: #6b6b7b;
+      border: 1.5px solid #e2e0dc;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Source Sans 3', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover { border-color: #100692; color: #100692; }
+    .btn-link {
+      background: none;
+      border: none;
+      color: #6b6b7b;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Source Sans 3', sans-serif;
+      cursor: pointer;
+    }
+    .btn-link:hover { color: #100692; }
+    .progress-bar-track {
+      height: 6px;
+      background: #e2e0dc;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #100692, #1bc0f8);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #6b6b7b;
+    }
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(27,192,248,0.09);
+      color: #100692;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .question-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.35;
+      color: #1a1a2e;
+      margin: 16px 0 12px;
+    }
+    .help-toggle {
+      background: none;
+      border: none;
+      color: #1bc0f8;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      font-family: 'Source Sans 3', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .help-box {
+      background: rgba(27,192,248,0.05);
+      border: 1px solid rgba(27,192,248,0.19);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #3a3a4a;
+    }
+    .answer-row { display: flex; gap: 12px; margin-top: 24px; margin-bottom: 16px; }
+    .nav-row { display: flex; justify-content: space-between; align-items: center; }
+    .result-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .result-icon.success { background: #e8f5ef; }
+    .result-icon.warning { background: #fef3e2; }
+    .result-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .result-title.success { color: #0a8754; }
+    .result-title.warning { color: #b45309; }
+    .exemption-box {
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .exemption-box.success { background: #e8f5ef; border: 1px solid rgba(10,135,84,0.19); }
+    .exemption-box.warning { background: #fef3e2; border: 1px solid rgba(180,83,9,0.19); }
+    .next-steps p { margin: 0 0 10px; font-size: 15px; line-height: 1.7; color: #3a3a4a; }
+    .next-steps p:last-child { margin-bottom: 0; }
+    .resources-box {
+      background: #f8f9fc;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      border: 1px solid #e2e0dc;
+    }
+    .resources-box .label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #3a3a4a;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .resources-box a {
+      display: block;
+      color: #100692;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 3px 0;
+    }
+    .resources-box a:hover { text-decoration: underline; }
+    .footer-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #6b6b7b;
+      text-align: center;
+      line-height: 1.5;
+      max-width: 480px;
+    }
+    .work-rules-list p {
+      margin: 0 0 6px;
+      padding-left: 12px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #3a3a4a;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel" data-type="module">
+    const { useState, useEffect } = React;
+
+    const exemptionQuestions = [
+      {
+        id: "age_under18",
+        question: "Are you under 18 years old?",
+        helpText: "People under 18 are not subject to ABAWD work rules.",
+        exemptionLabel: "Under 18 years of age",
+        category: "Age",
+      },
+      {
+        id: "age_65plus",
+        question: "Are you 65 years old or older?",
+        helpText: "People 65 and older are fully exempt from ABAWD work rules.",
+        exemptionLabel: "65 years of age or older",
+        category: "Age",
+      },
+      {
+        id: "child_under14",
+        question: "Do you live with a child under 14 who is part of your SNAP household?",
+        helpText: "If there is a child under 14 in your SNAP household, you are exempt. Note: as of the One Big Beautiful Bill Act, this threshold changed from under 18 to under 14.",
+        exemptionLabel: "Adult in a SNAP household with a child under 14",
+        category: "Household",
+      },
+      {
+        id: "employed",
+        question: "Are you currently working at least 30 hours per week, or earning at least $217.50 per week?",
+        helpText: "This includes employment, self-employment, or any combination of jobs. The $217.50 amount is based on the federal minimum wage multiplied by 30 hours.",
+        exemptionLabel: "Employed 30+ hours/week or earning $217.50+/week",
+        category: "Employment",
+      },
+      {
+        id: "caretaker",
+        question: "Are you responsible for caring for someone who cannot care for themselves?",
+        helpText: "This includes caring for a person with a disability, chronic illness, or other condition that requires your ongoing support. The person does not need to live with you.",
+        exemptionLabel: "Caretaker of an incapacitated person",
+        category: "Caregiving",
+      },
+      {
+        id: "pregnant",
+        question: "Are you currently pregnant?",
+        helpText: "Pregnant individuals are exempt from ABAWD work rules throughout the pregnancy.",
+        exemptionLabel: "Currently pregnant",
+        category: "Health",
+      },
+      {
+        id: "health_barrier",
+        question: "Do you have a physical or mental health condition that prevents you from working at least 80 hours per month (about 20 hours per week)?",
+        helpText: "This can be a temporary or permanent condition, injury, or illness. You may need to have a medical professional complete a Medical Statement form to verify this.",
+        exemptionLabel: "Physical or mental health barrier to employment",
+        category: "Health",
+      },
+      {
+        id: "substance_treatment",
+        question: "Are you currently participating in a drug or alcohol treatment program?",
+        helpText: "Regular participation in a substance use treatment program qualifies as an exemption.",
+        exemptionLabel: "Participant in substance use treatment program",
+        category: "Health",
+      },
+      {
+        id: "disability_benefits",
+        question: "Do you currently receive disability benefits from any source (Social Security Disability, NYS disability, VA disability compensation, or private disability)?",
+        helpText: "This includes SSDI, NYS short-term or long-term disability, Veterans Affairs disability compensation, or private disability insurance benefits.",
+        exemptionLabel: "Receiving disability benefits",
+        category: "Benefits",
+      },
+      {
+        id: "unemployment",
+        question: "Are you currently receiving or applying for Unemployment Insurance Benefits?",
+        helpText: "Active receipt of, or a pending application for, unemployment benefits qualifies.",
+        exemptionLabel: "Receiving or applying for Unemployment Insurance",
+        category: "Benefits",
+      },
+      {
+        id: "student",
+        question: "Are you enrolled at least half-time in a school, job skills training program, or institution of higher education?",
+        helpText: "You must also meet the SNAP student eligibility criteria. Half-time enrollment varies by institution.",
+        exemptionLabel: "Student enrolled at least half-time",
+        category: "Education",
+      },
+      {
+        id: "ssi",
+        question: "Are you currently receiving Supplemental Security Income (SSI), or have you applied for both SNAP and SSI together?",
+        helpText: "This applies if you are already receiving SSI or if you filed a joint application for SNAP and SSI at the same time.",
+        exemptionLabel: "Receiving or jointly applying for SSI",
+        category: "Benefits",
+      },
+    ];
+
+    const categoryIconPaths = {
+      Age: '<circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M3 17.5c0-3.5 3-5.5 7-5.5s7 2 7 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>',
+      Household: '<path d="M3 10l7-6 7 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M5 9v7a1 1 0 001 1h8a1 1 0 001-1V9" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+      Employment: '<rect x="3" y="6" width="14" height="10" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M7 6V5a2 2 0 012-2h2a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+      Caregiving: '<path d="M10 17s-6-4.35-6-8a4 4 0 017-2.65A4 4 0 0116 9c0 3.65-6 8-6 8z" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+      Health: '<rect x="7" y="3" width="6" height="14" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/><rect x="3" y="7" width="14" height="6" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+      Benefits: '<rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M3 9h14" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+      Education: '<path d="M2 8l8-4 8 4-8 4-8-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M15 10v4c0 1-2.5 2.5-5 2.5S5 15 5 14v-4" stroke="currentColor" stroke-width="1.5" fill="none"/>',
+    };
+
+    function CategoryBadge({ category }) {
+      return (
+        <span className="category-badge">
+          <svg width="20" height="20" viewBox="0 0 20 20" dangerouslySetInnerHTML={{__html: categoryIconPaths[category]}} />
+          {category}
+        </span>
+      );
+    }
+
+    function ProgressBar({ current, total }) {
+      const pct = (current / total) * 100;
+      return (
+        <div style={{width: "100%", marginBottom: 24}}>
+          <div className="progress-label">
+            <span>Question {current} of {total}</span>
+            <span>{Math.round(pct)}%</span>
+          </div>
+          <div className="progress-bar-track">
+            <div className="progress-bar-fill" style={{width: pct + "%"}} />
+          </div>
+        </div>
+      );
+    }
+
+    function getFormLinks(category) {
+      const links = [];
+      if (category === "Health") {
+        links.push({href: "https://www.monroecounty.gov/files/hs/ABAWD%20Medical%20Statement%20Verification%20Form.pdf", label: "ABAWD Medical Exemption Form"});
+        links.push({href: "https://www.monroecounty.gov/files/hs/VERIFICATION%20OF%20PREGNANCY%20STATEMENT.pdf", label: "Pregnancy Verification Form"});
+      }
+      if (category === "Caregiving") {
+        links.push({href: "https://www.monroecounty.gov/files/hs/ABAWD%20Needed%20in%20the%20Home%20Verification%20Form%2010.2025.pdf", label: "ABAWD Needed in the Home Form"});
+      }
+      if (category === "Employment") {
+        links.push({href: "https://www.monroecounty.gov/files/hs/Employer's%20Statement%20MCDSS-729.pdf", label: "Employer Statement Form"});
+      }
+      links.push({href: "https://www.monroecounty.gov/snap-abawd-changes", label: "Monroe County ABAWD Information Page"});
+      links.push({href: "https://otda.ny.gov/programs/snap/work-requirements.asp", label: "NYS OTDA SNAP Work Requirements"});
+      return links;
+    }
+
+    function App() {
+      const [screen, setScreen] = useState("welcome");
+      const [currentQ, setCurrentQ] = useState(0);
+      const [answers, setAnswers] = useState({});
+      const [exemptionFound, setExemptionFound] = useState(null);
+      const [showHelp, setShowHelp] = useState(false);
+      const [animKey, setAnimKey] = useState(0);
+
+      const triggerAnim = () => setAnimKey(k => k + 1);
+
+      const handleAnswer = (answer) => {
+        const q = exemptionQuestions[currentQ];
+        setAnswers(prev => ({...prev, [q.id]: answer}));
+        setShowHelp(false);
+        triggerAnim();
+
+        if (answer === "yes") {
+          setExemptionFound(q);
+          setScreen("exempt");
+        } else if (currentQ < exemptionQuestions.length - 1) {
+          setCurrentQ(currentQ + 1);
+        } else {
+          setScreen("not_exempt");
+        }
+      };
+
+      const handleBack = () => {
+        setShowHelp(false);
+        triggerAnim();
+        if (currentQ > 0) {
+          setCurrentQ(currentQ - 1);
+        } else {
+          setScreen("welcome");
+        }
+      };
+
+      const restart = () => {
+        setScreen("welcome");
+        setCurrentQ(0);
+        setAnswers({});
+        setExemptionFound(null);
+        setShowHelp(false);
+        triggerAnim();
+      };
+
+      // WELCOME
+      if (screen === "welcome") {
+        return (
+          <div className="card" key={animKey}>
+            <div className="badge-date">Effective March 2026</div>
+            <h1>SNAP ABAWD Exemption Screener</h1>
+            <p className="subtitle">Monroe County, NY</p>
+            <p className="body-text">
+              Starting March 1, 2026, some adults ages 18 to 64 must meet work requirements to keep SNAP benefits for more than 3 months. These are called the <strong>ABAWD (Able Bodied Adults Without Dependents)</strong> work rules.
+            </p>
+            <p className="body-text">
+              Many people are <strong>exempt</strong> from these rules. This screener will walk you through a series of questions to help you find out if you may qualify for an exemption.
+            </p>
+            <div className="disclaimer-box">
+              <p><strong>Please note:</strong> This tool provides a preliminary screening only. It does not determine your official SNAP eligibility or ABAWD status. Monroe County Department of Social Services (MCDSS) makes the final determination. No personal information is collected or stored.</p>
+            </div>
+            <button className="btn-primary" style={{fontSize: 17, padding: "16px 32px"}} onClick={() => { triggerAnim(); setScreen("questions"); }}>
+              Start Screening
+            </button>
+          </div>
+        );
+      }
+
+      // QUESTIONS
+      if (screen === "questions") {
+        const q = exemptionQuestions[currentQ];
+        return (
+          <div className="card" key={animKey}>
+            <ProgressBar current={currentQ + 1} total={exemptionQuestions.length} />
+            <CategoryBadge category={q.category} />
+            <h2 className="question-title">{q.question}</h2>
+            <button className="help-toggle" onClick={() => setShowHelp(!showHelp)}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{transform: showHelp ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s ease"}}>
+                <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M6 7l2 2 2-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              {showHelp ? "Hide details" : "What does this mean?"}
+            </button>
+            {showHelp && <div className="help-box">{q.helpText}</div>}
+            <div className="answer-row">
+              <button className="btn-answer btn-yes" onClick={() => handleAnswer("yes")}>Yes</button>
+              <button className="btn-answer btn-no" onClick={() => handleAnswer("no")}>No</button>
+            </div>
+            <div className="nav-row">
+              <button className="btn-secondary" onClick={handleBack}>&larr; Back</button>
+              <button className="btn-link" onClick={restart}>Start over</button>
+            </div>
+          </div>
+        );
+      }
+
+      // EXEMPT
+      if (screen === "exempt" && exemptionFound) {
+        const links = getFormLinks(exemptionFound.category);
+        return (
+          <div className="card" key={animKey}>
+            <div className="result-icon success">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                <path d="M8 15l5 5 9-9" stroke="#0a8754" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h2 className="result-title success">You may be exempt from the ABAWD work rules.</h2>
+            <div className="exemption-box success">
+              <p style={{fontSize: 14, fontWeight: 600, color: "#0a8754", margin: "0 0 4px"}}>Exemption identified:</p>
+              <p style={{fontSize: 16, color: "#1a1a2e", margin: 0, fontWeight: 500}}>{exemptionFound.exemptionLabel}</p>
+            </div>
+            <h3 style={{fontSize: 16, fontWeight: 700, margin: "0 0 12px"}}>What to do next</h3>
+            <div className="next-steps">
+              <p><strong>1. Tell MCDSS about your exemption.</strong> You can share this information during your SNAP application or recertification interview.</p>
+              <p><strong>2. Submit documentation if needed.</strong> Depending on your exemption, MCDSS may ask for verification such as a medical statement, proof of pregnancy, proof of enrollment, or other documentation.</p>
+              <p><strong>3. You can submit documents</strong> by uploading them through NYS DocSubmit or by calling MCDSS directly.</p>
+              <p><strong>4. Keep your information current.</strong> If your situation changes, let MCDSS know right away so your exemption status stays up to date.</p>
+            </div>
+            <div className="resources-box" style={{marginTop: 24}}>
+              <p className="label">Helpful forms</p>
+              {links.map((l, i) => <a key={i} href={l.href} target="_blank" rel="noreferrer">{l.label} &rarr;</a>)}
+            </div>
+            <button className="btn-primary" onClick={restart}>Screen again</button>
+            <p className="footer-note">This is a preliminary screening only. MCDSS makes the final determination on ABAWD status and exemptions. You may also qualify for additional exemptions not identified here.</p>
+          </div>
+        );
+      }
+
+      // NOT EXEMPT
+      if (screen === "not_exempt") {
+        return (
+          <div className="card" key={animKey}>
+            <div className="result-icon warning">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <path d="M14 8v7" stroke="#b45309" strokeWidth="2.5" strokeLinecap="round" />
+                <circle cx="14" cy="20" r="1.5" fill="#b45309" />
+              </svg>
+            </div>
+            <h2 className="result-title warning">Based on your answers, you may need to meet the ABAWD work rules.</h2>
+            <p className="body-text">None of the standard exemptions were identified based on your responses. This does not mean you are definitely subject to the ABAWD work rules. MCDSS will review your individual situation and make a final determination.</p>
+            <div className="exemption-box warning">
+              <p style={{fontSize: 14, fontWeight: 600, color: "#b45309", margin: "0 0 6px"}}>Important: The 3-month time limit</p>
+              <p style={{fontSize: 14, lineHeight: 1.6, color: "#3a3a4a", margin: 0}}>If you are subject to the ABAWD work rules and do not meet them, you can receive SNAP for up to 3 months in the current 36-month period (October 1, 2023, through September 30, 2026). After using those 3 months, you would lose SNAP benefits until October 1, 2026, unless you begin meeting the work rules.</p>
+            </div>
+            <h3 style={{fontSize: 16, fontWeight: 700, margin: "0 0 12px"}}>How to meet the ABAWD work rules</h3>
+            <p className="body-text" style={{marginBottom: 8}}>Each month, you must complete at least <strong>80 hours</strong> (about 20 hours per week) of one or more qualifying activities:</p>
+            <div className="work-rules-list">
+              <p>&bull; Working at a job (paid employment or self-employment)</p>
+              <p>&bull; Volunteering or doing in-kind work</p>
+              <p>&bull; Participating in an approved job skills training program</p>
+              <p>&bull; Participating in a WIOA or Trade Act program (may include job search, job readiness, training, and education activities)</p>
+              <p>&bull; Participating in a veterans employment and training program</p>
+              <p>&bull; Any combination of the above totaling 80 hours</p>
+            </div>
+            <p className="body-text" style={{marginTop: 8}}>You must provide verification of your activity to MCDSS by the end of each month.</p>
+            <div className="resources-box">
+              <p className="label">Helpful resources</p>
+              <a href="https://www.monroecounty.gov/files/hs/ABAWD%20Monthly%20Volunteer%20Record%2010.2025.pdf" target="_blank" rel="noreferrer">Monthly Volunteer/Work Experience Form &rarr;</a>
+              <a href="https://www.monroecounty.gov/files/hs/Monthly%20ABAWD%20Education%20and%20Training%20Participation%20Record.pdf" target="_blank" rel="noreferrer">Training/Education Verification Form &rarr;</a>
+              <a href="https://www.monroecounty.gov/files/hs/Employer's%20Statement%20MCDSS-729.pdf" target="_blank" rel="noreferrer">Employer Statement Form &rarr;</a>
+              <a href="https://www.monroecounty.gov/files/hs/ABAWD%20Medical%20Statement%20Verification%20Form.pdf" target="_blank" rel="noreferrer">Medical Exemption Form (in case you do have a health barrier) &rarr;</a>
+              <a href="https://www.monroecounty.gov/snap-abawd-changes" target="_blank" rel="noreferrer">Monroe County ABAWD Information Page &rarr;</a>
+              <a href="https://otda.ny.gov/programs/snap/work-requirements.asp" target="_blank" rel="noreferrer">NYS OTDA SNAP Work Requirements &rarr;</a>
+            </div>
+            <button className="btn-primary" onClick={restart}>Screen again</button>
+            <p className="footer-note">This is a preliminary screening only. MCDSS makes the final determination. If you think you have an exemption that was not covered here, contact MCDSS to discuss your situation. You can also submit a written statement through NYS DocSubmit.</p>
+          </div>
+        );
+      }
+
+      return null;
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
